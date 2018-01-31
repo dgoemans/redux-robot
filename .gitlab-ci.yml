@@ -22,7 +22,9 @@ build:
     - npm run compile
   artifacts:
     paths:
-      - obj
+      - node
+      - module
+      - types
 
 test:
   tags:
