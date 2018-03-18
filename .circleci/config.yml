@@ -1,0 +1,83 @@
+version: 2
+
+jobs:
+  prepare:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+      - restore_cache:
+          key: npm
+      - run: npm install
+      - save_cache:
+          key: npm
+          paths:
+            - ~/.npm
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .npmrc
+            - node_modules
+            - node
+            - module
+            - types
+
+  lint:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: npm run lint
+
+  test:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: npm test
+
+  publish:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: npm publish
+
+workflows:
+  version: 2
+  test-and-deploy:
+    jobs:
+      - prepare:
+          context: npm-authorized
+          filters:
+            tags:
+              only: /.*?/
+      - lint:
+          requires:
+            - prepare
+          filters:
+            tags:
+              only: /.*?/
+      - test:
+          requires:
+            - prepare
+          filters:
+            tags:
+              only: /.*?/
+      - publish:
+          requires:
+            - lint
+            - test
+            - prepare
+          filters:
+            branches:
+              ignore: /.*?/
+            tags:
+              only: /.*?/
