@@ -1,4 +1,7 @@
-# automated tests
+# tsprimer
+The dawn of a TypeScript project.
+
+## automated tests
 NEVER commit something that breaks the build! You can
 easily prevent this by linking the `test.sh` script as a git `pre-commit` hook!
 
