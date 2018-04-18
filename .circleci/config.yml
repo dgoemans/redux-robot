@@ -1,83 +1,56 @@
 version: 2
 
 jobs:
-  prepare:
-    docker:
+  prepare-npm:
+    docker: &docker_node
       - image: circleci/node:8
     steps:
       - checkout
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
       - restore_cache:
-          key: npm
+          key: npm-
       - run: npm install
+      - run: npm install tap-junit
       - save_cache:
-          key: npm
+          key: npm-{{ .Revision }}
           paths:
             - ~/.npm
       - persist_to_workspace:
           root: .
           paths:
-            - .npmrc
             - node_modules
             - node
             - module
             - types
 
   lint:
-    docker:
-      - image: circleci/node:8
+    docker: *docker_node
     steps:
       - checkout
-      - attach_workspace:
+      - attach_workspace: &attach_workspace
           at: .
       - run: npm run lint
 
-  test:
-    docker:
-      - image: circleci/node:8
+  spec:
+    docker: *docker_node
     steps:
       - checkout
-      - attach_workspace:
-          at: .
-      - run: npm test
-
-  publish:
-    docker:
-      - image: circleci/node:8
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run: npm publish
+      - attach_workspace: *attach_workspace
+      - run: npm run spec-all | $(npm bin)/tap-junit --output "/tmp/test-results/spec"
+      - store_test_results:
+          path: /tmp/test-results
 
 workflows:
   version: 2
-  test-and-deploy:
+  main:
     jobs:
-      - prepare:
+      - prepare-npm:
           context: npm-authorized
-          filters:
+          filters: &filter_all
             tags:
               only: /.*?/
-      - lint:
+      - lint: &test_job
           requires:
-            - prepare
-          filters:
-            tags:
-              only: /.*?/
-      - test:
-          requires:
-            - prepare
-          filters:
-            tags:
-              only: /.*?/
-      - publish:
-          requires:
-            - lint
-            - test
-            - prepare
-          filters:
-            branches:
-              ignore: /.*?/
-            tags:
-              only: /.*?/
+            - prepare-npm
+          filters: *filter_all
+      - spec: *test_job
