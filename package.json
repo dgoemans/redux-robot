@@ -1,6 +1,5 @@
 {
   "name": "@gameye/tsprimer",
-  "version": "0.0.0",
   "description": "",
   "main": "./node/main.js",
   "module": "./module/main.js",
@@ -24,10 +23,13 @@
     "nyc": "^13.3.0",
     "tape": "^4.10.1",
     "ts-node": "^8.0.3",
-    "tslint": "^5.14.0",
-    "typescript": "^3.3.3"
+    "tslint": "^5.15.0",
+    "typescript": "^3.4.1"
   },
   "dependencies": {
     "tslib": "^1.9.3"
+  },
+  "engines": {
+    "node": "^10"
   }
 }

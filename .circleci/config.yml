@@ -3,7 +3,7 @@ version: 2
 jobs:
   prepare-npm:
     docker: &docker_node
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - checkout
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
