@@ -8,3 +8,12 @@ Feature: Robot should react to actions
         Given a robot that is currently on
         When a power off Action is dipatched
         Then the robot is turned off
+
+    Scenario: Next letter when off
+        Given a robot that is currently off
+        When the next letter is requested
+        Then the robot does not go to the next letter
+
+    Scenario: Current letter when off
+        Given a robot that is currently off
+        Then the current letter cannot be requested

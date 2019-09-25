@@ -1,7 +1,6 @@
 import { expect } from "chai";
 import * as cucumber from "cucumber";
-import { ActionTypes } from "../robot/";
-import { selectIsRobotOn } from "../robot/";
+import { ActionTypes, selectIsRobotOn } from "../robot/";
 // tslint:disable: no-unused-expression
 
 cucumber.Given(
