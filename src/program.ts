@@ -1,8 +1,10 @@
+import Robot from "./robot";
+
 main();
 
 async function main() {
-    // tslint:disable: no-console
-    console.log("hi");
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log("bye");
+    const robot = new Robot();
+    robot.turnOn();
+    // tslint:disable-next-line: no-console
+    console.log(robot.isOn());
 }
