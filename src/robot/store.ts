@@ -1,9 +1,9 @@
 import { applyMiddleware, createStore, Store } from "redux";
-import { power } from "./middleware";
+import { power, speak } from "./middleware";
 import { application, initialState } from "./reducers";
 
-export const store: Store = createStore(
+export const makeStore = (log: (...params: any[]) => void) => createStore(
     application,
     initialState,
-    applyMiddleware(power),
+    applyMiddleware(power, speak(log)),
 );

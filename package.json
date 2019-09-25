@@ -9,6 +9,7 @@
     "compile": "tsc && tsc --project tsconfig.module.json",
     "clean": "rm -rf node types module",
     "lint": "tslint \"src/**/*.ts\"",
+    "test-debug": "node --nolazy --inspect=9229 --debug-brk ./node_modules/cucumber/bin/cucumber-js ./features/**/*.feature --require-module ts-node/register --require ./src/test/**/*.ts",
     "test": "cucumber-js ./features/**/*.feature --require-module ts-node/register --require ./src/test/**/*.ts"
   },
   "author": "",

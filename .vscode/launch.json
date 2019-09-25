@@ -7,6 +7,17 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Debug Cucumber",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "test-debug"
+            ],
+            "port": 9229
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "run file",
             "program": "${file}",
             "args": [],

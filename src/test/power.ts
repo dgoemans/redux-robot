@@ -8,8 +8,15 @@ cucumber.Given(
     () => null,
 );
 
+cucumber.Given(
+    "a robot that is currently on",
+    function() {
+        this.store.dispatch({ type: ActionTypes.PowerOn });
+    },
+);
+
 cucumber.When(
-    "a power on Action is dipatched",
+    "a power on Action is dispatched",
     function() {
         this.store.dispatch({ type: ActionTypes.PowerOn });
     },
@@ -25,15 +32,8 @@ cucumber.Then(
     },
 );
 
-cucumber.Given(
-    "a robot that is currently on",
-    function() {
-        this.store.dispatch({ type: ActionTypes.PowerOn });
-    },
-);
-
 cucumber.When(
-    "a power off Action is dipatched",
+    "a power off Action is dispatched",
     function() {
         this.store.dispatch({ type: ActionTypes.PowerOff });
     },
