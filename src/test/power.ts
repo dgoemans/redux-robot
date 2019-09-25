@@ -5,9 +5,7 @@ import { ActionTypes, selectIsRobotOn } from "../robot/";
 
 cucumber.Given(
     "a robot that is currently off",
-    function() {
-        this.store.dispatch({ type: ActionTypes.PowerOff });
-    },
+    () => null,
 );
 
 cucumber.When(

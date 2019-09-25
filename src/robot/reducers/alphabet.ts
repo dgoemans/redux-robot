@@ -5,7 +5,7 @@ export interface AlphabetState {
 }
 
 const minCode = "A".charCodeAt(0);
-const moduloCode = "Z".charCodeAt(0) - minCode;
+const moduloCode = "Z".charCodeAt(0) + 1 - minCode;
 
 export function alphabet(state: AlphabetState, action: Action): AlphabetState {
     switch (action.type) {

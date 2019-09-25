@@ -11,9 +11,13 @@ Feature: Robot should react to actions
 
     Scenario: Next letter when off
         Given a robot that is currently off
-        When the next letter is requested
-        Then the robot does not go to the next letter
+        Then the next letter cannot be requested
 
     Scenario: Current letter when off
         Given a robot that is currently off
         Then the current letter cannot be requested
+
+    Scenario: Letters wrap around at Z
+        Given a robot that is currently on
+        When the next letter is requested 26 times
+        Then the current letter is "A"

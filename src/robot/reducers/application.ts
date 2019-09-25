@@ -17,6 +17,6 @@ export const initialState: State = {
 };
 
 export const application = (state: State = initialState, action: Action): State => ({
-    alphabet: selectIsRobotOn(state) ? alphabet(state.alphabet, action) : state.alphabet,
+    alphabet: alphabet(state.alphabet, action),
     power: power(state.power, action),
 });
