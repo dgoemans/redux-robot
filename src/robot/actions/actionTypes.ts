@@ -7,6 +7,8 @@ export enum ActionTypes {
     Speak = "speak",
     StartAdvance = "start-advance",
     StopAdvance = "stop-advance",
+    RequestWord = "request-word",
+    ReceiveWord = "receive-word",
 }
 
 export type Action = PowerOn
