@@ -6,7 +6,7 @@ export const speak =
     (log: (...params: any[]) => void) =>
     (api: MiddlewareAPI) =>
     (next: Dispatch) =>
-    (action: AnyAction): Promise<AnyAction> => {
+    (action: AnyAction): AnyAction => {
         const result = next(action);
 
         const say = (message: string) => {
